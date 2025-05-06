@@ -1,0 +1,121 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{hyperref}
+
+\title{\textbf{RayTracer Project - Build \& Usage Documentation}}
+\author{CSE 461 - Computer Graphics}
+\date{}
+
+\definecolor{codegray}{gray}{0.95}
+\lstset{
+  backgroundcolor=\color{codegray},
+  basicstyle=\ttfamily\footnotesize,
+  frame=single,
+  breaklines=true,
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+  showstringspaces=false
+}
+
+\begin{document}
+
+\maketitle
+
+\section*{Environment Requirements}
+This project is designed to be built and run on \textbf{Ubuntu Linux}. Ensure you are working in a Unix-based environment with the following tools installed:
+
+\begin{itemize}
+    \item \texttt{g++} with C++17 support
+    \item GNU Make
+    \item A terminal or shell capable of running \texttt{make}, \texttt{bash}, and standard Linux utilities
+    \item Makefile is provided
+\end{itemize}
+
+Tested on Ubuntu 22.04 LTS and compatible with most modern Debian-based distributions.
+
+\section{Compiling the Project}
+To compile the main raytracer and test runner binaries, use the following command:
+
+\begin{lstlisting}
+make
+\end{lstlisting}
+
+This will:
+\begin{itemize}
+    \item Compile the source files from \texttt{src/} and \texttt{lib/}
+    \item Place object files in \texttt{build/obj/}
+    \item Generate the final executable \texttt{raytracer} at:
+    \begin{lstlisting}
+    build/release/raytracer
+    \end{lstlisting}
+\end{itemize}
+
+\section{Running the RayTracer}
+You can run the raytracer manually by providing:
+\begin{itemize}
+    \item A scene XML file path
+    \item An output PNG file path
+    \item A render mode: \texttt{single} or \texttt{multi}
+\end{itemize}
+
+\textbf{Example command:}
+\begin{lstlisting}
+./build/release/raytracer ./assets/scenes/scene_low_tree.xml outputs/output_tree.png multi
+\end{lstlisting}
+
+This will render \texttt{scene\_low\_tree.xml} using multithreaded mode and save the output to \texttt{outputs/output\_tree.png}.
+
+\section{Output Directory}
+Rendered images are saved in the \texttt{outputs/} directory. This folder is automatically created if it does not exist.
+
+\section{Running System Tests}
+To build and run the test runner (which automatically renders all scenes in \texttt{assets/scenes/}):
+
+\begin{lstlisting}
+make tests
+\end{lstlisting}
+
+This will:
+\begin{itemize}
+    \item Build the test binary at \texttt{build/tests/test\_runner}
+    \item Run the binary
+    \item Render all scenes with multithreading
+    \item Save output images as:
+    \begin{lstlisting}
+    outputs/output_scene_<scene_name>_<timestamp>.png
+    \end{lstlisting}
+\end{itemize}
+
+\textbf{Example generated output:}
+\begin{lstlisting}
+outputs/output_scene_scene_low_tree_20250412_154015.png
+\end{lstlisting}
+
+\section{Cleaning Up}
+To remove all compiled files and outputs:
+
+\begin{lstlisting}
+make clean
+\end{lstlisting}
+
+To remove only output images:
+
+\begin{lstlisting}
+make clean_outputs
+\end{lstlisting}
+
+To remove only object files:
+
+\begin{lstlisting}
+make clean_obj
+\end{lstlisting}
+
+\section*{Notes}
+\begin{itemize}
+    \item If \texttt{assets/scenes/} is missing, the test runner will exit with an error.
+    \item If \texttt{assets/textures/} is missing, a warning will be shown, but the test will proceed.
+    \item All timestamps are generated based on the local system time.
+\end{itemize}
+
+\end{document}
