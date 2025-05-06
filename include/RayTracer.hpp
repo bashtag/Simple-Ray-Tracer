@@ -2,6 +2,7 @@
 #define RAYTRACER_HPP
 
 #include <thread>
+#include <mutex>
 #include "Scene.hpp"
 
 class RayTracer {
